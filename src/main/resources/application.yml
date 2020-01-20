@@ -1,0 +1,18 @@
+server.port: 9385
+
+application:
+  logging.controller.path: /api/tariff/*
+  swagger.host: localhost:${server.port}
+  tariff.response.filename: classpath:tariffInfo.json
+  # OBJECT MAPPER setting for mapping ZonedDateTime to string format with "..+ZZ:ZZ" tail
+spring:
+  jackson:
+    deserialization:
+      adjust_dates_to_context_time_zone: false
+logging:
+  level:
+    ru.mts.trading: debug
+spring.cache:
+ cache-names: tariffInfo
+ caffeine.spec: expireAfterAccess=60s
+
