@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.2.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
-	id 'io.freefair.lombok' version '3.6.4'
+	id 'io.freefair.lombok' version '4.1.6'
 }
 group = 'ru.mts.trading'
 version = '1.0.0-SNAPSHOT'
@@ -12,20 +12,11 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenLocal()
 	mavenCentral()
-	maven { url 'https://repo.spring.io/plugins-release' }
-	maven { url 'https://repo.spring.io/libs-release' }
-	maven {
-		url 'http://84.201.150.107:8080/repository/snapshots'
-		credentials(PasswordCredentials) {
-			username = 'pubushka'
-			password = 'pubushka123'
-		}
-	}
 }
 
 ext {
 	apacheCommonsLangVersion = '3.9'
-	lombokVersion = '1.18.8'
+	lombokVersion = '1.18.10'
 	swaggerVersion = '2.9.2'
 
 	commonsRestVersion = '1.0.0-SNAPSHOT'
