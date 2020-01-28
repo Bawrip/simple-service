@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import ru.mts.trading.server.exceptions.base.CommonException;
 import simple.response.TariffInfo;
 
 import java.io.InputStream;
@@ -31,7 +30,7 @@ public class TariffInfoService {
             tariffInfo = objectMapper.readValue(inputStream, TariffInfo.class);
         } catch (Exception ex) {
             String errorMessage = MessageFormat.format("Failed to load contents from \"{0}\".", tariffResource.getFilename());
-            throw new CommonException(errorMessage, ex);
+            throw new RuntimeException(errorMessage);
         }
         return tariffInfo;
     }

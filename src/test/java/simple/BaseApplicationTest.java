@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import ru.mts.trading.server.transport.response.ResponseDto;
+import simple.response.ResponseDto;
 
 import javax.annotation.Nullable;
 

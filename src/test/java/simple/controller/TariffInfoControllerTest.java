@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import ru.mts.trading.server.transport.response.ResponseDto;
 import simple.BaseApplicationTest;
+import simple.response.ResponseDto;
 import simple.response.TariffInfo;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
