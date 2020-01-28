@@ -2,8 +2,6 @@ package simple;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.function.Consumer;
 
-@Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
 @SpringBootTest(
@@ -36,13 +33,16 @@ public class BaseApplicationTest {
     public static final ParameterizedTypeReference<ResponseDto<Void>> VOID = new ParameterizedTypeReference<ResponseDto<Void>>() {
     };
 
-    @Getter
     @LocalServerPort
     protected int port;
     @Autowired
     protected TestRestTemplate testRestTemplate;
     @Autowired
     protected ObjectMapper objectMapper;
+
+    public int getPort() {
+        return port;
+    }
 
     private static <DTO> DTO assertResponse(
             ResponseEntity<DTO> response, HttpStatus httpStatus, boolean checkForNullContent
@@ -110,9 +110,7 @@ public class BaseApplicationTest {
     }
 
     protected <T> T loadFromJson(String jsonFileName, TypeReference<T> reference) {
-        log.trace("loadFromJson: loading a \"{}\" from \"{}\"", reference.getType().getTypeName(), jsonFileName);
         final T result = TestJsonUtils.loadFromJson(objectMapper, getClass(), jsonFileName, reference);
-        log.debug("loadFromJson: successfully loaded from \"{}\": {}", jsonFileName, result);
         return result;
     }
 

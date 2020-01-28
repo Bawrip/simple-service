@@ -2,9 +2,6 @@ package simple;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.ToString;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -13,8 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-@Slf4j
-@UtilityClass
 public final class TestJsonUtils {
 
     private static ConcurrentMap<String, String> cachedResources = new ConcurrentHashMap<>();
@@ -31,7 +26,6 @@ public final class TestJsonUtils {
 
         String cached = cachedResources.putIfAbsent(key, json);
         if (cached != null) {
-            log.warn("Cache of resources already contains mapping for {}({}): {}", key, reference, cached);
         }
         return result;
     }
@@ -40,7 +34,6 @@ public final class TestJsonUtils {
         try (InputStream resourceAsStream = testClass.getResourceAsStream(jsonFileName)) {
             return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8.name());
         } catch (Exception ex) {
-            log.error(String.format("Failed to load contents from \"%s\".", jsonFileName), ex);
             throw new TestResourceLoadException(testClass, jsonFileName, String.class, ex);
         }
     }
@@ -49,12 +42,10 @@ public final class TestJsonUtils {
         try {
             return objectMapper.readValue(json, reference);
         } catch (IOException ex) {
-            log.error(String.format("Failed to convert a \"%s\" from \"%s\".", reference.getType().getTypeName(), jsonFileName), ex);
             throw new TestResourceLoadException(testClass, jsonFileName, reference.getType().getClass(), ex);
         }
     }
 
-    @ToString
     public static class TestResourceLoadException extends RuntimeException {
 
         private static final long serialVersionUID = -4611801383285872251L;

@@ -1,7 +1,7 @@
 package simple.controller;
 
 import io.swagger.annotations.Api;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,14 +12,18 @@ import simple.service.TariffInfoService;
 @Api
 @RestController
 @RequestMapping("api/tariff")
-@RequiredArgsConstructor
 public class TariffInfoController {
 
-    private final TariffInfoService tariffInfoService;
+    private TariffInfoService tariffInfoService;
+
+    @Autowired
+    public TariffInfoController(TariffInfoService tariffInfoService) {
+        this.tariffInfoService = tariffInfoService;
+    }
 
     @GetMapping("info")
-    public ResponseDto<TariffInfo[]> getTariffInfo(){
-        TariffInfo[] response = tariffInfoService.getConstantTariffInfo();
+    public ResponseDto<TariffInfo> getTariffInfo(){
+        TariffInfo response = tariffInfoService.getConstantTariffInfo();
         return ResponseDto.success(response);
     }
 }
